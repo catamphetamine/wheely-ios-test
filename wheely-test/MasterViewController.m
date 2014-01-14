@@ -7,37 +7,180 @@
 //
 
 #import "MasterViewController.h"
-
 #import "DetailViewController.h"
+#import "Note.h"
+#import "NoteCell.h"
+#import "UIViewController+TopBarAndBottomBarSpacing.h"
+#import "AppDelegate.h"
 
-@interface MasterViewController () {
-    NSMutableArray *_objects;
-}
-@end
+static CGFloat cellSpacing = 10;
+
+static NSURL* url;
+static int refreshInterval = 5; // in seconds
 
 @implementation MasterViewController
+{
+    __weak IBOutlet UIActivityIndicatorView* loadingIndicator;
+    __weak IBOutlet UITableView* tableView;
+    
+    __weak AppDelegate* appDelegate;
+    
+    NSTimer* refreshTimer;
+    
+    ServerCommunication* serverCommunication;
+    
+    NSMutableArray* notes;
+}
 
-- (void)awakeFromNib
++ (void) initialize
+{
+    url = [NSURL URLWithString:@"http://crazy-dev.wheely.com/"];
+}
+
+- (id) initWithCoder: (NSCoder*) decoder
+{
+    if (self = [super initWithCoder:decoder])
+    {
+        appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+        
+        appDelegate.masterViewController = self;
+    }
+    return self;
+}
+
+- (void) awakeFromNib
 {
     [super awakeFromNib];
 }
 
-- (void)viewDidLoad
+- (void) viewWillAppear: (BOOL) animated
+{
+    [super viewWillAppear:animated];
+    
+    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
+}
+
+- (void) viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+    
+    UIBarButtonItem* refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(fetchNotes)];
+    self.navigationItem.rightBarButtonItem = refreshButton;
+    
+    tableView.delegate = self;
+    tableView.dataSource = self;
 }
 
-- (void)didReceiveMemoryWarning
+- (void) viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^
+    {
+        [self insetOnTopAndBottom:tableView];
+    });
+}
+
+- (void) startRefreshTimer
+{
+    if (!refreshTimer)
+        refreshTimer = [NSTimer scheduledTimerWithTimeInterval:refreshInterval
+                                                        target:self
+                                                      selector:@selector(fetchNotes)
+                                                      userInfo:nil
+                                                       repeats:YES];
+}
+
+- (void) stopRefreshTimer
+{
+    [refreshTimer invalidate];
+    refreshTimer = nil;
+}
+
+- (CGFloat) tableView: (UITableView*) tableView heightForHeaderInSection: (NSInteger) section
+{
+    return cellSpacing;
+}
+
+- (CGFloat) tableView: (UITableView*) tableView heightForFooterInSection: (NSInteger) section
+{
+    if (section == notes.count - 1)
+        return cellSpacing;
+    
+    return 0;
+}
+
+- (UIView*) tableView: (UITableView*) tableView viewForHeaderInSection: (NSInteger) section
+{
+    UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    [headerView setBackgroundColor:[UIColor clearColor]];
+    return headerView;
+}
+
+- (UIView*) tableView: (UITableView*) tableView viewForFooterInSection: (NSInteger) section
+{
+    UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    [headerView setBackgroundColor:[UIColor clearColor]];
+    return headerView;
+}
+
+- (void) communicationFailed: (NSError*) error
+                     message: (NSString*) errorMessage
+{
+    [loadingIndicator stopAnimating];
+    
+    [self showError:errorMessage];
+}
+
+- (void) fetchNotes
+{
+    if (!serverCommunication)
+        serverCommunication = [[ServerCommunication alloc] initWithSessionSource:appDelegate url:url delegate:self];
+    
+    [serverCommunication communicate];
+}
+
+- (void) serverResponds: (NSDictionary*) data
+{
+    notes = [NSMutableArray new];
+    
+    for (NSDictionary* noteData in data)
+    {
+        Note* note = [[Note alloc] initWithJSON:noteData];
+        [notes addObject:note];
+    }
+    
+    [notes sortUsingComparator:^NSComparisonResult(Note* first, Note* second)
+    {
+        return [first.id compare:second.id];
+    }];
+
+    [tableView reloadData];
+    
+    //if current view = detail view
+    //    refresh note text
+    
+    // if first time
+    tableView.hidden = NO;
+    [loadingIndicator stopAnimating];
+}
+
+- (void) showError: (NSString*) message
+{
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
+                                                    message:message delegate:nil
+                                          cancelButtonTitle:NSLocalizedString(@"Error. Dismiss", nil)
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+
+- (void) didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
+/*
 - (void)insertNewObject:(id)sender
 {
     if (!_objects) {
@@ -47,42 +190,57 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
+*/
 
 #pragma mark - Table View
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return notes.count;
+}
+
+- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (CGFloat) tableView: (UITableView*) tableView heightForRowAtIndexPath: (NSIndexPath*) indexPath
 {
-    return _objects.count;
+    static NoteCell* sizingCell;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^
+    {
+        sizingCell = (NoteCell*)[tableView dequeueReusableCellWithIdentifier:@"NoteCell"];
+    });
+    
+    [sizingCell note:notes[indexPath.section]];
+    
+    // force layout
+    [sizingCell setNeedsLayout];
+    [sizingCell layoutIfNeeded];
+    
+    // get the fitting size
+    CGSize fittingSize = [sizingCell.contentView systemLayoutSizeFittingSize: UILayoutFittingCompressedSize];
+    //NSLog( @"fittingSize: %@", NSStringFromCGSize(fittingSize));
+    
+    return fittingSize.height;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    NoteCell* cell = [tableView dequeueReusableCellWithIdentifier:@"NoteCell" forIndexPath:indexPath];
 
-    NSDate *object = _objects[indexPath.row];
-    cell.textLabel.text = [object description];
+    Note* note = notes[indexPath.section];
+    
+    [cell note:note];
+    
     return cell;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_objects removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-    }
+    return NO;
 }
 
 /*
@@ -101,12 +259,23 @@
 }
 */
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void) prepareForSegue: (UIStoryboardSegue*) segue
+                  sender: (id) sender
 {
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSDate *object = _objects[indexPath.row];
-        [[segue destinationViewController] setDetailItem:object];
+    if ([[segue identifier] isEqualToString:@"showDetail"])
+    {
+        NSIndexPath* indexPath = [tableView indexPathForSelectedRow];
+        Note* note = notes[indexPath.section];
+        
+        DetailViewController* detail = [segue destinationViewController];
+        detail.note = note;
+        
+        UIBarButtonItem* backButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", nil)
+                                                                       style:UIBarButtonItemStyleBordered
+                                                                      target:nil
+                                                                      action:nil];
+        
+        [self.navigationItem setBackBarButtonItem:backButton];
     }
 }
 

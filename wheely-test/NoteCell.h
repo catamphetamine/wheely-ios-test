@@ -1,5 +1,5 @@
 //
-//  DetailViewController.h
+//  NoteCell.h
 //  wheely-test
 //
 //  Created by Admin on 14.01.14.
@@ -10,7 +10,8 @@
 
 #import "Note.h"
 
-@interface DetailViewController : UIViewController
+@interface NoteCell : UITableViewCell
 
-@property (nonatomic) Note* note;
+- (void) note: (Note*) note;
+
 @end

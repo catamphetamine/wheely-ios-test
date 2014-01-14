@@ -22,6 +22,23 @@
 		84E94286188536D500BFACED /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E94265188536D500BFACED /* UIKit.framework */; };
 		84E9428E188536D500BFACED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84E9428C188536D500BFACED /* InfoPlist.strings */; };
 		84E94290188536D500BFACED /* wheely_testTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E9428F188536D500BFACED /* wheely_testTests.m */; };
+		84E942A1188547F600BFACED /* ServerCommunication.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942A0188547F600BFACED /* ServerCommunication.m */; };
+		84E942A418854B4300BFACED /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942A318854B4300BFACED /* Note.m */; };
+		84E942B018854C3700BFACED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84E942A918854C3700BFACED /* InfoPlist.strings */; };
+		84E942B118854C3700BFACED /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84E942AC18854C3700BFACED /* InfoPlist.strings */; };
+		84E942B518854C5E00BFACED /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84E942B318854C5E00BFACED /* Localizable.strings */; };
+		84E942B818854C7700BFACED /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84E942B618854C7700BFACED /* Localizable.strings */; };
+		84E942BB18854D2B00BFACED /* NoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942BA18854D2B00BFACED /* NoteCell.m */; };
+		84E942CF18854EAD00BFACED /* MultilineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942BE18854EAD00BFACED /* MultilineLabel.m */; };
+		84E942D018854EAD00BFACED /* NSDictionary+HttpTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942C018854EAD00BFACED /* NSDictionary+HttpTools.m */; };
+		84E942D118854EAD00BFACED /* NSError+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942C218854EAD00BFACED /* NSError+Tools.m */; };
+		84E942D218854EAD00BFACED /* NSString+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942C418854EAD00BFACED /* NSString+Tools.m */; };
+		84E942D318854EAD00BFACED /* NSURL+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942C618854EAD00BFACED /* NSURL+Tools.m */; };
+		84E942D418854EAD00BFACED /* UIButton+Animator.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942C818854EAD00BFACED /* UIButton+Animator.m */; };
+		84E942D518854EAD00BFACED /* UITextField+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942CA18854EAD00BFACED /* UITextField+Tools.m */; };
+		84E942D618854EAD00BFACED /* UIView+Animator.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942CC18854EAD00BFACED /* UIView+Animator.m */; };
+		84E942D718854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942CE18854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.m */; };
+		84E942DC1885C18500BFACED /* UIView+SectionStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942DB1885C18500BFACED /* UIView+SectionStyle.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +73,40 @@
 		84E9428B188536D500BFACED /* wheely-testTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "wheely-testTests-Info.plist"; sourceTree = "<group>"; };
 		84E9428D188536D500BFACED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84E9428F188536D500BFACED /* wheely_testTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = wheely_testTests.m; sourceTree = "<group>"; };
+		84E9429F188547F600BFACED /* ServerCommunication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerCommunication.h; sourceTree = "<group>"; };
+		84E942A0188547F600BFACED /* ServerCommunication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerCommunication.m; sourceTree = "<group>"; };
+		84E942A218854B4300BFACED /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
+		84E942A318854B4300BFACED /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
+		84E942A518854C2C00BFACED /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		84E942A618854C2C00BFACED /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		84E942A718854C2C00BFACED /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		84E942AA18854C3700BFACED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
+		84E942AD18854C3700BFACED /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = InfoPlist.strings; sourceTree = "<group>"; };
+		84E942B418854C5E00BFACED /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = Localizable.strings; sourceTree = "<group>"; };
+		84E942B718854C7700BFACED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
+		84E942B918854D2B00BFACED /* NoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteCell.h; sourceTree = "<group>"; };
+		84E942BA18854D2B00BFACED /* NoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteCell.m; sourceTree = "<group>"; };
+		84E942BD18854EAD00BFACED /* MultilineLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultilineLabel.h; sourceTree = "<group>"; };
+		84E942BE18854EAD00BFACED /* MultilineLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultilineLabel.m; sourceTree = "<group>"; };
+		84E942BF18854EAD00BFACED /* NSDictionary+HttpTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+HttpTools.h"; sourceTree = "<group>"; };
+		84E942C018854EAD00BFACED /* NSDictionary+HttpTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+HttpTools.m"; sourceTree = "<group>"; };
+		84E942C118854EAD00BFACED /* NSError+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+Tools.h"; sourceTree = "<group>"; };
+		84E942C218854EAD00BFACED /* NSError+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+Tools.m"; sourceTree = "<group>"; };
+		84E942C318854EAD00BFACED /* NSString+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Tools.h"; sourceTree = "<group>"; };
+		84E942C418854EAD00BFACED /* NSString+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Tools.m"; sourceTree = "<group>"; };
+		84E942C518854EAD00BFACED /* NSURL+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Tools.h"; sourceTree = "<group>"; };
+		84E942C618854EAD00BFACED /* NSURL+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Tools.m"; sourceTree = "<group>"; };
+		84E942C718854EAD00BFACED /* UIButton+Animator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Animator.h"; sourceTree = "<group>"; };
+		84E942C818854EAD00BFACED /* UIButton+Animator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Animator.m"; sourceTree = "<group>"; };
+		84E942C918854EAD00BFACED /* UITextField+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Tools.h"; sourceTree = "<group>"; };
+		84E942CA18854EAD00BFACED /* UITextField+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Tools.m"; sourceTree = "<group>"; };
+		84E942CB18854EAD00BFACED /* UIView+Animator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Animator.h"; sourceTree = "<group>"; };
+		84E942CC18854EAD00BFACED /* UIView+Animator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Animator.m"; sourceTree = "<group>"; };
+		84E942CD18854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TopBarAndBottomBarSpacing.h"; sourceTree = "<group>"; };
+		84E942CE18854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TopBarAndBottomBarSpacing.m"; sourceTree = "<group>"; };
+		84E942D91885AF5800BFACED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		84E942DA1885C18500BFACED /* UIView+SectionStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SectionStyle.h"; sourceTree = "<group>"; };
+		84E942DB1885C18500BFACED /* UIView+SectionStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SectionStyle.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,14 +166,25 @@
 		84E94267188536D500BFACED /* wheely-test */ = {
 			isa = PBXGroup;
 			children = (
+				84E94273188536D500BFACED /* Main.storyboard */,
 				84E94270188536D500BFACED /* AppDelegate.h */,
 				84E94271188536D500BFACED /* AppDelegate.m */,
-				84E94273188536D500BFACED /* Main.storyboard */,
 				84E94276188536D500BFACED /* MasterViewController.h */,
 				84E94277188536D500BFACED /* MasterViewController.m */,
 				84E94279188536D500BFACED /* DetailViewController.h */,
 				84E9427A188536D500BFACED /* DetailViewController.m */,
+				84E9429F188547F600BFACED /* ServerCommunication.h */,
+				84E942A0188547F600BFACED /* ServerCommunication.m */,
+				84E942A218854B4300BFACED /* Note.h */,
+				84E942A318854B4300BFACED /* Note.m */,
+				84E942B918854D2B00BFACED /* NoteCell.h */,
+				84E942BA18854D2B00BFACED /* NoteCell.m */,
+				84E942DA1885C18500BFACED /* UIView+SectionStyle.h */,
+				84E942DB1885C18500BFACED /* UIView+SectionStyle.m */,
+				84E942BC18854EAD00BFACED /* extension */,
 				84E9427C188536D500BFACED /* Images.xcassets */,
+				84E942A818854C3700BFACED /* en.lproj */,
+				84E942AB18854C3700BFACED /* ru.lproj */,
 				84E94268188536D500BFACED /* Supporting Files */,
 			);
 			path = "wheely-test";
@@ -157,6 +219,49 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		84E942A818854C3700BFACED /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				84E942A918854C3700BFACED /* InfoPlist.strings */,
+				84E942B618854C7700BFACED /* Localizable.strings */,
+			);
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
+		84E942AB18854C3700BFACED /* ru.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				84E942AC18854C3700BFACED /* InfoPlist.strings */,
+				84E942B318854C5E00BFACED /* Localizable.strings */,
+			);
+			path = ru.lproj;
+			sourceTree = "<group>";
+		};
+		84E942BC18854EAD00BFACED /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				84E942BD18854EAD00BFACED /* MultilineLabel.h */,
+				84E942BE18854EAD00BFACED /* MultilineLabel.m */,
+				84E942BF18854EAD00BFACED /* NSDictionary+HttpTools.h */,
+				84E942C018854EAD00BFACED /* NSDictionary+HttpTools.m */,
+				84E942C118854EAD00BFACED /* NSError+Tools.h */,
+				84E942C218854EAD00BFACED /* NSError+Tools.m */,
+				84E942C318854EAD00BFACED /* NSString+Tools.h */,
+				84E942C418854EAD00BFACED /* NSString+Tools.m */,
+				84E942C518854EAD00BFACED /* NSURL+Tools.h */,
+				84E942C618854EAD00BFACED /* NSURL+Tools.m */,
+				84E942C718854EAD00BFACED /* UIButton+Animator.h */,
+				84E942C818854EAD00BFACED /* UIButton+Animator.m */,
+				84E942C918854EAD00BFACED /* UITextField+Tools.h */,
+				84E942CA18854EAD00BFACED /* UITextField+Tools.m */,
+				84E942CB18854EAD00BFACED /* UIView+Animator.h */,
+				84E942CC18854EAD00BFACED /* UIView+Animator.m */,
+				84E942CD18854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.h */,
+				84E942CE18854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.m */,
+			);
+			path = extension;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -167,6 +272,7 @@
 				84E9425A188536D500BFACED /* Sources */,
 				84E9425B188536D500BFACED /* Frameworks */,
 				84E9425C188536D500BFACED /* Resources */,
+				84E942D81885AF3100BFACED /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -216,6 +322,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 84E94255188536D500BFACED;
 			productRefGroup = 84E9425F188536D500BFACED /* Products */;
@@ -234,8 +341,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				84E9427D188536D500BFACED /* Images.xcassets in Resources */,
+				84E942B018854C3700BFACED /* InfoPlist.strings in Resources */,
 				84E9426C188536D500BFACED /* InfoPlist.strings in Resources */,
+				84E942B518854C5E00BFACED /* Localizable.strings in Resources */,
+				84E942B818854C7700BFACED /* Localizable.strings in Resources */,
 				84E94275188536D500BFACED /* Main.storyboard in Resources */,
+				84E942B118854C3700BFACED /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,15 +360,44 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		84E942D81885AF3100BFACED /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n# Update storyboard string files\n#\n# by 2013 André Pinto andredsp@gmail.com\n# based on http://forums.macrumors.com/showthread.php?t=1467446\n\nexit 0\n\nstoryboardExt=\".storyboard\"\nstringsExt=\".strings\"\nnewStringsExt=\".strings.new\"\noldStringsExt=\".strings.old\"\nlocaleDirExt=\".lproj\"\nbaselprojName=\"Base.lproj\"\n\n# Find Base internationalization folders\nfind . -name \"$baselprojName\" | while read baselprojPath\ndo\n# Get Base project dir\nbaselprojDir=$(dirname \"$baselprojPath\")\n\n# Find storyboard file full path inside base project folder\nfind \"$baselprojPath\" -name \"*$storyboardExt\" | while read storyboardPath\ndo\n# Get Base strings file full path\nbaseStringsPath=$(echo \"$storyboardPath\" | sed \"s/$storyboardExt/$stringsExt/\")\n\n# Get storyboard file name and folder\nstoryboardFile=$(basename \"$storyboardPath\")\nstoryboardDir=$(dirname \"$storyboardPath\")\n\n# Create strings file only when storyboard file newer\nnewer=$(find \"$storyboardPath\" -prune -newer \"$baseStringsPath\")\n[ -f \"$baseStringsPath\" -a -z \"$newer\" ] && {\n    echo \"$storyboardFile file not modified.\"\n    continue\n}\n\n# Get New Base strings file full path and strings file name\nnewBaseStringsPath=$(echo \"$storyboardPath\" | sed \"s/$storyboardExt/$newStringsExt/\")\nstringsFile=$(basename \"$baseStringsPath\")\n\necho \"Creating default $stringsFile for $storyboardFile...\"\nibtool --export-strings-file \"$newBaseStringsPath\" \"$storyboardPath\"\niconv -f UTF-16 -t UTF-8 \"$newBaseStringsPath\" > \"$baseStringsPath\"\nrm \"$newBaseStringsPath\"\n\n# Get all locale strings folder with same parent as Base\nls -d \"$baselprojDir/\"*\"$localeDirExt\" | while read localeStringsDir\ndo\n# Skip Base strings folder\n[ \"$localeStringsDir\" = \"$storyboardDir\" ] && continue\n\nlocaleDir=$(basename \"$localeStringsDir\")\nlocaleStringsPath=\"$localeStringsDir/$stringsFile\"\n\n# Just copy base strings file on first time\nif [ ! -e \"$localeStringsPath\" ]; then\necho \"Copying default $stringsFile for $localeDir...\"\ncp \"$baseStringsPath\" \"$localeStringsPath\"\nelse\necho \"Merging $stringsFile changes for $localeDir...\"\noldLocaleStringsPath=$(echo \"$localeStringsPath\" | sed \"s/$stringsExt/$oldStringsExt/\")\ncp \"$localeStringsPath\" \"$oldLocaleStringsPath\"\n\n# Merge baseStringsPath to localeStringsPath\nawk '\nNR == FNR && /^\\/\\*/ {\n    x=$0\n    getline\n    a[x]=$0\n    next\n}\n/^\\/\\*/ {\n    x=$0\n    print\n    getline\n    $0=a[x]?a[x]:$0\n    printf $0\"\\n\\n\"\n}'  \"$oldLocaleStringsPath\" \"$baseStringsPath\" > \"$localeStringsPath\"\n\nrm \"$oldLocaleStringsPath\"\nfi\ndone\ndone\ndone";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		84E9425A188536D500BFACED /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84E942A1188547F600BFACED /* ServerCommunication.m in Sources */,
 				84E94272188536D500BFACED /* AppDelegate.m in Sources */,
+				84E942BB18854D2B00BFACED /* NoteCell.m in Sources */,
 				84E94278188536D500BFACED /* MasterViewController.m in Sources */,
+				84E942D318854EAD00BFACED /* NSURL+Tools.m in Sources */,
+				84E942D118854EAD00BFACED /* NSError+Tools.m in Sources */,
 				84E9426E188536D500BFACED /* main.m in Sources */,
+				84E942D718854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.m in Sources */,
+				84E942D218854EAD00BFACED /* NSString+Tools.m in Sources */,
+				84E942DC1885C18500BFACED /* UIView+SectionStyle.m in Sources */,
+				84E942D018854EAD00BFACED /* NSDictionary+HttpTools.m in Sources */,
+				84E942D418854EAD00BFACED /* UIButton+Animator.m in Sources */,
+				84E942D618854EAD00BFACED /* UIView+Animator.m in Sources */,
 				84E9427B188536D500BFACED /* DetailViewController.m in Sources */,
+				84E942A418854B4300BFACED /* Note.m in Sources */,
+				84E942CF18854EAD00BFACED /* MultilineLabel.m in Sources */,
+				84E942D518854EAD00BFACED /* UITextField+Tools.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +424,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				84E9426B188536D500BFACED /* en */,
+				84E942A618854C2C00BFACED /* ru */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -292,6 +433,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				84E94274188536D500BFACED /* Base */,
+				84E942A518854C2C00BFACED /* ru */,
+				84E942D91885AF5800BFACED /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -300,8 +443,41 @@
 			isa = PBXVariantGroup;
 			children = (
 				84E9428D188536D500BFACED /* en */,
+				84E942A718854C2C00BFACED /* ru */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		84E942A918854C3700BFACED /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84E942AA18854C3700BFACED /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		84E942AC18854C3700BFACED /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84E942AD18854C3700BFACED /* ru */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		84E942B318854C5E00BFACED /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84E942B418854C5E00BFACED /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		84E942B618854C7700BFACED /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84E942B718854C7700BFACED /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

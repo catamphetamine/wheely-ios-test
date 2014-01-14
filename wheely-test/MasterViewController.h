@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MasterViewController : UITableViewController
+#import "ServerCommunication.h"
+
+@interface MasterViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, ServerCommunicationDelegate>
+
+- (void) fetchNotes;
+- (void) startRefreshTimer;
+- (void) stopRefreshTimer;
 
 @end

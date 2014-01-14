@@ -7,42 +7,49 @@
 //
 
 #import "DetailViewController.h"
+#import "UIViewController+TopBarAndBottomBarSpacing.h"
+#import "UIView+SectionStyle.h"
 
 @interface DetailViewController ()
-- (void)configureView;
 @end
 
 @implementation DetailViewController
+{
+    IBOutlet UIScrollView *scrollView;
+    
+    __weak IBOutlet UIView *containingView;
+    
+    __weak IBOutlet UIView *titleView;
+    __weak IBOutlet UIView *textView;
+    
+    __weak IBOutlet UILabel *noteTitle;
+    __weak IBOutlet UILabel *text;
+}
 
 #pragma mark - Managing the detail item
 
-- (void)setDetailItem:(id)newDetailItem
-{
-    if (_detailItem != newDetailItem) {
-        _detailItem = newDetailItem;
-        
-        // Update the view.
-        [self configureView];
-    }
-}
-
-- (void)configureView
-{
-    // Update the user interface for the detail item.
-
-    if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
-    }
-}
-
-- (void)viewDidLoad
+- (void) viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    [self configureView];
+	
+    noteTitle.text = self.note.title;
+    text.text = self.note.text;
+    
+    self.title = self.note.title;
+
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    [titleView stylize];
+    [textView stylize];
+    
+    scrollView.contentInset = UIEdgeInsetsZero;
+    
+    NSDictionary* views = NSDictionaryOfVariableBindings(containingView, scrollView);
+    
+    [scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[containingView(==scrollView)]" options:0 metrics:0 views:views]];
 }
 
-- (void)didReceiveMemoryWarning
+- (void) didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

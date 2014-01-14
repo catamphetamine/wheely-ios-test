@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  wheely-test
+
+  Created by Admin on 14.01.14.
+  Copyright (c) 2014 kuchumovn. All rights reserved.
+*/
+
+"Back" = "Назад";
+
+"Remote Api. Connection to the server failed" = "Не удалось связаться с сервером";
+
+"Remote Api. Server error" = "Произошла ошибка на сервере";
+
+"Remote Api. Generic error" = "Не удалось войти";
+
+"Error" = "Ошибка";
+
+"Error. Dismiss" = "Ясно";

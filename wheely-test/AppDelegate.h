@@ -8,8 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#import "MasterViewController.h"
+#import "ServerCommunication.h"
 
-@property (strong, nonatomic) UIWindow *window;
+@interface AppDelegate : UIResponder <UIApplicationDelegate, NetworkSessionSource>
+
+@property (nonatomic) UIWindow* window;
+@property (nonatomic) NSURLSession* session;
+
+@property (weak, nonatomic) MasterViewController* masterViewController;
 
 @end
