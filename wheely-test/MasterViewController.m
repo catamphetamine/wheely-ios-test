@@ -122,6 +122,10 @@ static const int refreshInterval = 3; // in seconds
     for (NSDictionary* noteData in data)
     {
         Note* note = [[Note alloc] initWithJSON:noteData];
+        
+        // for testing
+        //note.text = [note.text stringByAppendingString:[[NSDate new] description]];
+        
         [newNotes addObject:note];
     }
     
@@ -170,21 +174,43 @@ static const int refreshInterval = 3; // in seconds
         }
     }
     
-    [tableView beginUpdates];
+    NSLog(@"previous notes %@", previousNotes);
+    NSLog(@"new notes %@", newNotes);
     
     // remove absent notes
     for (Note* note in removedNotes)
     {
         int index = [previousNotes indexOfObject:note];
         
-        //NSLog(@"remove note at %d", index);
+        // fix the 'request for rect of header in invalid section (-1)' bug
+        [tableView beginUpdates];
+        
+        NSLog(@"remove note at %d", index);
         
         [previousNotes removeObjectAtIndex:index];
         
         [tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        [tableView endUpdates];
     }
     
     // prevent the "attempt to delete and reload the same index path" exception
+    
+    [tableView beginUpdates];
+    
+    // insert new notes
+    for (Note* note in addedNotes)
+    {
+        int index = [newNotes indexOfObject:note];
+        
+        NSLog(@"insert note at %d", index);
+        
+        [previousNotes insertObject:note atIndex:index];
+        
+        [tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
+    }
+    
+    // prevent 'attempt to delete section X, but there are only Y sections before the update'
     [tableView endUpdates];
     
     [tableView beginUpdates];
@@ -192,33 +218,21 @@ static const int refreshInterval = 3; // in seconds
     // update retained notes if their text changed
     for (Note* oldNote in retainedNotes)
     {
-        int index = [previousNotes indexOfObject:oldNote];
+        int index = [newNotes indexOfObject:oldNote];
         
         Note* newNote = newNotes[index];
         
         if ([newNote.text isEqualToString:oldNote.text])
             continue;
         
-        //NSLog(@"reload note at %d", index);
+        NSLog(@"reload note at %d", index);
         
         previousNotes[index] = newNote;
         
         [tableView reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];
     }
     
-    // insert new notes
-    for (Note* note in addedNotes)
-    {
-        int index = [newNotes indexOfObject:note];
-        
-        //NSLog(@"insert note at %d", index);
-        
-        [previousNotes insertObject:note atIndex:index];
-        
-        [tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
-    }
-    
-    //NSLog(@"end updates with %@", previousNotes);
+    NSLog(@"finished updates with %@", notes);
     
     [tableView endUpdates];
 }
@@ -279,12 +293,12 @@ static const int refreshInterval = 3; // in seconds
     return headerView;
 }
 
-- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger) numberOfSectionsInTableView: (UITableView*) tableView
 {
     return notes.count;
 }
 
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger) tableView: (UITableView*) tableView numberOfRowsInSection: (NSInteger) section
 {
     return 1;
 }

@@ -52,7 +52,21 @@
 - (void) updateNote: (Note*) note
 {
     if (![self.note.text isEqualToString:note.text])
-        text.text = note.text;
+    {
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseIn
+                         animations:^{ text.alpha = 0; }
+                         completion:^(BOOL finished)
+        {
+            if (!finished)
+                return;
+            
+            text.text = note.text;
+            
+            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn
+                             animations:^{ text.alpha = 1; }
+                             completion:nil];
+        }];
+    }
     
     self.note = note;
 }
