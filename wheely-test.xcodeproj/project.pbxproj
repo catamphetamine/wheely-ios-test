@@ -41,6 +41,7 @@
 		84E942DC1885C18500BFACED /* UIView+SectionStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942DB1885C18500BFACED /* UIView+SectionStyle.m */; };
 		84E942DE1885D3BA00BFACED /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 84E942DD1885D3BA00BFACED /* README.md */; };
 		84E942E418867CF100BFACED /* NSArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942E318867CF100BFACED /* NSArray+Extensions.m */; };
+		84E942E61886BC6B00BFACED /* description.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84E942E51886BC6B00BFACED /* description.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 		84E942DD1885D3BA00BFACED /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		84E942E218867CF100BFACED /* NSArray+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Extensions.h"; sourceTree = "<group>"; };
 		84E942E318867CF100BFACED /* NSArray+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Extensions.m"; sourceTree = "<group>"; };
+		84E942E51886BC6B00BFACED /* description.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = description.pdf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 		84E94255188536D500BFACED = {
 			isa = PBXGroup;
 			children = (
+				84E942E51886BC6B00BFACED /* description.pdf */,
 				84E942DD1885D3BA00BFACED /* README.md */,
 				84E94267188536D500BFACED /* wheely-test */,
 				84E94289188536D500BFACED /* wheely-testTests */,
@@ -355,6 +358,7 @@
 				84E942B818854C7700BFACED /* Localizable.strings in Resources */,
 				84E94275188536D500BFACED /* Main.storyboard in Resources */,
 				84E942DE1885D3BA00BFACED /* README.md in Resources */,
+				84E942E61886BC6B00BFACED /* description.pdf in Resources */,
 				84E942B118854C3700BFACED /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
