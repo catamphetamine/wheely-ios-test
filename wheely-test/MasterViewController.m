@@ -183,6 +183,7 @@ static const int refreshInterval = 3; // in seconds
         int index = [previousNotes indexOfObject:note];
         
         // fix the 'request for rect of header in invalid section (-1)' bug
+        // (bug report # 15824130)
         [tableView beginUpdates];
         
         NSLog(@"remove note at %d", index);
