@@ -13,4 +13,7 @@
 @interface DetailViewController : UIViewController
 
 @property (nonatomic) Note* note;
+
+- (void) updateNote: (Note*) note;
+
 @end

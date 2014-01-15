@@ -39,6 +39,8 @@
 		84E942D618854EAD00BFACED /* UIView+Animator.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942CC18854EAD00BFACED /* UIView+Animator.m */; };
 		84E942D718854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942CE18854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.m */; };
 		84E942DC1885C18500BFACED /* UIView+SectionStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942DB1885C18500BFACED /* UIView+SectionStyle.m */; };
+		84E942DE1885D3BA00BFACED /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 84E942DD1885D3BA00BFACED /* README.md */; };
+		84E942E418867CF100BFACED /* NSArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942E318867CF100BFACED /* NSArray+Extensions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +109,9 @@
 		84E942D91885AF5800BFACED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		84E942DA1885C18500BFACED /* UIView+SectionStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SectionStyle.h"; sourceTree = "<group>"; };
 		84E942DB1885C18500BFACED /* UIView+SectionStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SectionStyle.m"; sourceTree = "<group>"; };
+		84E942DD1885D3BA00BFACED /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		84E942E218867CF100BFACED /* NSArray+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Extensions.h"; sourceTree = "<group>"; };
+		84E942E318867CF100BFACED /* NSArray+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Extensions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +141,7 @@
 		84E94255188536D500BFACED = {
 			isa = PBXGroup;
 			children = (
+				84E942DD1885D3BA00BFACED /* README.md */,
 				84E94267188536D500BFACED /* wheely-test */,
 				84E94289188536D500BFACED /* wheely-testTests */,
 				84E94260188536D500BFACED /* Frameworks */,
@@ -258,6 +264,8 @@
 				84E942CC18854EAD00BFACED /* UIView+Animator.m */,
 				84E942CD18854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.h */,
 				84E942CE18854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.m */,
+				84E942E218867CF100BFACED /* NSArray+Extensions.h */,
+				84E942E318867CF100BFACED /* NSArray+Extensions.m */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -346,6 +354,7 @@
 				84E942B518854C5E00BFACED /* Localizable.strings in Resources */,
 				84E942B818854C7700BFACED /* Localizable.strings in Resources */,
 				84E94275188536D500BFACED /* Main.storyboard in Resources */,
+				84E942DE1885D3BA00BFACED /* README.md in Resources */,
 				84E942B118854C3700BFACED /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,6 +394,7 @@
 				84E94272188536D500BFACED /* AppDelegate.m in Sources */,
 				84E942BB18854D2B00BFACED /* NoteCell.m in Sources */,
 				84E94278188536D500BFACED /* MasterViewController.m in Sources */,
+				84E942E418867CF100BFACED /* NSArray+Extensions.m in Sources */,
 				84E942D318854EAD00BFACED /* NSURL+Tools.m in Sources */,
 				84E942D118854EAD00BFACED /* NSError+Tools.m in Sources */,
 				84E9426E188536D500BFACED /* main.m in Sources */,

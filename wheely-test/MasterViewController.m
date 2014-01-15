@@ -12,11 +12,12 @@
 #import "NoteCell.h"
 #import "UIViewController+TopBarAndBottomBarSpacing.h"
 #import "AppDelegate.h"
+#import "NSArray+Extensions.h"
 
-static CGFloat cellSpacing = 10;
+static const CGFloat cellSpacing = 10;
 
 static NSURL* url;
-static int refreshInterval = 5; // in seconds
+static const int refreshInterval = 3; // in seconds
 
 @implementation MasterViewController
 {
@@ -30,6 +31,8 @@ static int refreshInterval = 5; // in seconds
     ServerCommunication* serverCommunication;
     
     NSMutableArray* notes;
+    
+    __weak DetailViewController* detailViewController;
 }
 
 + (void) initialize
@@ -48,11 +51,6 @@ static int refreshInterval = 5; // in seconds
     return self;
 }
 
-- (void) awakeFromNib
-{
-    [super awakeFromNib];
-}
-
 - (void) viewWillAppear: (BOOL) animated
 {
     [super viewWillAppear:animated];
@@ -69,6 +67,9 @@ static int refreshInterval = 5; // in seconds
     
     tableView.delegate = self;
     tableView.dataSource = self;
+    
+    // a fix for the 'Cell animation stop fraction must be greater than start fraction' crash
+    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, cellSpacing)];
 }
 
 - (void) viewDidLayoutSubviews
@@ -98,31 +99,12 @@ static int refreshInterval = 5; // in seconds
     refreshTimer = nil;
 }
 
-- (CGFloat) tableView: (UITableView*) tableView heightForHeaderInSection: (NSInteger) section
+- (void) fetchNotes
 {
-    return cellSpacing;
-}
-
-- (CGFloat) tableView: (UITableView*) tableView heightForFooterInSection: (NSInteger) section
-{
-    if (section == notes.count - 1)
-        return cellSpacing;
+    if (!serverCommunication)
+        serverCommunication = [[ServerCommunication alloc] initWithSessionSource:appDelegate url:url delegate:self];
     
-    return 0;
-}
-
-- (UIView*) tableView: (UITableView*) tableView viewForHeaderInSection: (NSInteger) section
-{
-    UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    [headerView setBackgroundColor:[UIColor clearColor]];
-    return headerView;
-}
-
-- (UIView*) tableView: (UITableView*) tableView viewForFooterInSection: (NSInteger) section
-{
-    UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    [headerView setBackgroundColor:[UIColor clearColor]];
-    return headerView;
+    [serverCommunication communicate];
 }
 
 - (void) communicationFailed: (NSError*) error
@@ -133,37 +115,129 @@ static int refreshInterval = 5; // in seconds
     [self showError:errorMessage];
 }
 
-- (void) fetchNotes
-{
-    if (!serverCommunication)
-        serverCommunication = [[ServerCommunication alloc] initWithSessionSource:appDelegate url:url delegate:self];
-    
-    [serverCommunication communicate];
-}
-
 - (void) serverResponds: (NSDictionary*) data
 {
-    notes = [NSMutableArray new];
+    NSMutableArray* newNotes = [NSMutableArray new];
     
     for (NSDictionary* noteData in data)
     {
         Note* note = [[Note alloc] initWithJSON:noteData];
-        [notes addObject:note];
+        [newNotes addObject:note];
     }
     
-    [notes sortUsingComparator:^NSComparisonResult(Note* first, Note* second)
+    [newNotes sortUsingComparator:^NSComparisonResult(Note* first, Note* second)
     {
         return [first.id compare:second.id];
     }];
-
-    [tableView reloadData];
-    
-    //if current view = detail view
-    //    refresh note text
     
     // if first time
-    tableView.hidden = NO;
-    [loadingIndicator stopAnimating];
+    if (notes.count == 0)
+    {
+        notes = newNotes;
+        [self refreshTable];
+        
+        tableView.hidden = NO;
+        [loadingIndicator stopAnimating];
+    }
+    else
+    {
+        [self applyChanges:newNotes];
+    }
+    
+    //NSLog(@"\n\n\n\n\n\n");
+    //NSLog(@"%@", notes);
+    
+    [self updateDetail];
+}
+
+- (void) applyChanges: (NSArray*) newNotes
+{
+    NSMutableArray* previousNotes = notes;
+    
+    NSMutableArray* removedNotes = [previousNotes mutableCopy];
+    NSMutableArray* addedNotes = [newNotes mutableCopy];
+    
+    NSMutableArray* retainedNotes = [NSMutableArray new];
+
+    for (Note* note in previousNotes)
+    {
+        if ([newNotes containsObject:note])
+        {
+            [addedNotes removeObject:note];
+            [removedNotes removeObject:note];
+            
+            [retainedNotes addObject:note];
+        }
+    }
+    
+    [tableView beginUpdates];
+    
+    // remove absent notes
+    for (Note* note in removedNotes)
+    {
+        int index = [previousNotes indexOfObject:note];
+        
+        //NSLog(@"remove note at %d", index);
+        
+        [previousNotes removeObjectAtIndex:index];
+        
+        [tableView deleteSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    
+    // prevent the "attempt to delete and reload the same index path" exception
+    [tableView endUpdates];
+    
+    [tableView beginUpdates];
+    
+    // update retained notes if their text changed
+    for (Note* oldNote in retainedNotes)
+    {
+        int index = [previousNotes indexOfObject:oldNote];
+        
+        Note* newNote = newNotes[index];
+        
+        if ([newNote.text isEqualToString:oldNote.text])
+            continue;
+        
+        //NSLog(@"reload note at %d", index);
+        
+        previousNotes[index] = newNote;
+        
+        [tableView reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    
+    // insert new notes
+    for (Note* note in addedNotes)
+    {
+        int index = [newNotes indexOfObject:note];
+        
+        //NSLog(@"insert note at %d", index);
+        
+        [previousNotes insertObject:note atIndex:index];
+        
+        [tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationNone];
+    }
+    
+    //NSLog(@"end updates with %@", previousNotes);
+    
+    [tableView endUpdates];
+}
+
+- (void) updateDetail
+{
+    if (!detailViewController)
+        return;
+
+    NSUInteger index = [notes indexOfObject:detailViewController.note];
+    
+    if (index != NSNotFound)
+    {
+        [detailViewController updateNote:notes[index]];
+    }
+    else
+    {
+        // let it stay shown
+    }
 }
 
 - (void) showError: (NSString*) message
@@ -175,24 +249,35 @@ static int refreshInterval = 5; // in seconds
     [alert show];
 }
 
-- (void) didReceiveMemoryWarning
+#pragma mark - Table View
+
+- (void) refreshTable
 {
-    [super didReceiveMemoryWarning];
+    [tableView reloadData];
+}
+
+- (CGFloat) tableView: (UITableView*) tableView heightForHeaderInSection: (NSInteger) section
+{
+    return cellSpacing;
 }
 
 /*
-- (void)insertNewObject:(id)sender
-{
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
-    }
-    [_objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-*/
+ // Crash: 'Cell animation stop fraction must be greater than start fraction'
+ - (CGFloat) tableView: (UITableView*) tableView heightForFooterInSection: (NSInteger) section
+ {
+ if (section == notes.count - 1)
+ return cellSpacing;
+ 
+ return 0;
+ }
+ */
 
-#pragma mark - Table View
+- (UIView*) tableView: (UITableView*) tableView viewForHeaderInSection: (NSInteger) section
+{
+    UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    [headerView setBackgroundColor:[UIColor clearColor]];
+    return headerView;
+}
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -243,22 +328,6 @@ static int refreshInterval = 5; // in seconds
     return NO;
 }
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 - (void) prepareForSegue: (UIStoryboardSegue*) segue
                   sender: (id) sender
 {
@@ -267,8 +336,8 @@ static int refreshInterval = 5; // in seconds
         NSIndexPath* indexPath = [tableView indexPathForSelectedRow];
         Note* note = notes[indexPath.section];
         
-        DetailViewController* detail = [segue destinationViewController];
-        detail.note = note;
+        detailViewController = [segue destinationViewController];
+        detailViewController.note = note;
         
         UIBarButtonItem* backButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Back", nil)
                                                                        style:UIBarButtonItemStyleBordered
@@ -277,6 +346,11 @@ static int refreshInterval = 5; // in seconds
         
         [self.navigationItem setBackBarButtonItem:backButton];
     }
+}
+
+- (void) didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
 }
 
 @end

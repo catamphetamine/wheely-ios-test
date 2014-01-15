@@ -14,11 +14,26 @@
 {
     if (self = [super init])
     {
-        self.id = data[@"id"];
+        self.id = @([data[@"id"] integerValue]);
         self.title = data[@"title"];
         self.text = data[@"text"];
     }
     return self;
+}
+
+- (BOOL) isEqual: (id) object
+{
+    if (![object isKindOfClass:Note.class])
+        return false;
+    
+    Note* note = (Note*) object;
+    
+    return [self.id isEqualToNumber:note.id];
+}
+
+- (NSString*) description
+{
+    return [[[self.id stringValue] stringByAppendingString:@". "] stringByAppendingString:self.title];
 }
 
 @end

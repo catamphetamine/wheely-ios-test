@@ -10,7 +10,7 @@
 
 @interface Note : NSObject
 
-@property(nonatomic) NSString* id;
+@property(nonatomic) NSNumber* id;
 @property(nonatomic) NSString* title;
 @property(nonatomic) NSString* text;
 

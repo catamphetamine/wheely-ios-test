@@ -49,6 +49,14 @@
     [scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[containingView(==scrollView)]" options:0 metrics:0 views:views]];
 }
 
+- (void) updateNote: (Note*) note
+{
+    if (![self.note.text isEqualToString:note.text])
+        text.text = note.text;
+    
+    self.note = note;
+}
+
 - (void) didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
