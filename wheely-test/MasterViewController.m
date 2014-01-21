@@ -88,15 +88,24 @@ static const int refreshInterval = 3; // in seconds
     if (!refreshTimer)
         refreshTimer = [NSTimer scheduledTimerWithTimeInterval:refreshInterval
                                                         target:self
-                                                      selector:@selector(fetchNotes)
+                                                      selector:@selector(refreshTimerFired)
                                                       userInfo:nil
-                                                       repeats:YES];
+                                                       repeats:NO];
 }
 
 - (void) stopRefreshTimer
 {
+    if (!refreshTimer)
+        return;
+    
     [refreshTimer invalidate];
     refreshTimer = nil;
+}
+
+- (void) refreshTimerFired
+{
+    refreshTimer = nil;
+    [self fetchNotes];
 }
 
 - (void) fetchNotes
@@ -113,6 +122,8 @@ static const int refreshInterval = 3; // in seconds
     [loadingIndicator stopAnimating];
     
     [self showError:errorMessage];
+    
+    [self startRefreshTimer];
 }
 
 - (void) serverResponds: (NSDictionary*) data
@@ -152,6 +163,8 @@ static const int refreshInterval = 3; // in seconds
     //NSLog(@"%@", notes);
     
     [self updateDetail];
+    
+    [self startRefreshTimer];
 }
 
 - (void) applyChanges: (NSArray*) newNotes
