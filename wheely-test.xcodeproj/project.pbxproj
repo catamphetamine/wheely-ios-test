@@ -38,10 +38,10 @@
 		84E942D518854EAD00BFACED /* UITextField+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942CA18854EAD00BFACED /* UITextField+Tools.m */; };
 		84E942D618854EAD00BFACED /* UIView+Animator.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942CC18854EAD00BFACED /* UIView+Animator.m */; };
 		84E942D718854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942CE18854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.m */; };
-		84E942DC1885C18500BFACED /* UIView+SectionStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942DB1885C18500BFACED /* UIView+SectionStyle.m */; };
 		84E942DE1885D3BA00BFACED /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 84E942DD1885D3BA00BFACED /* README.md */; };
 		84E942E418867CF100BFACED /* NSArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942E318867CF100BFACED /* NSArray+Extensions.m */; };
 		84E942E61886BC6B00BFACED /* description.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84E942E51886BC6B00BFACED /* description.pdf */; };
+		84E942E9188E858D00BFACED /* UIView+IBAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942E8188E858D00BFACED /* UIView+IBAppearance.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,12 +108,12 @@
 		84E942CD18854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TopBarAndBottomBarSpacing.h"; sourceTree = "<group>"; };
 		84E942CE18854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TopBarAndBottomBarSpacing.m"; sourceTree = "<group>"; };
 		84E942D91885AF5800BFACED /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		84E942DA1885C18500BFACED /* UIView+SectionStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SectionStyle.h"; sourceTree = "<group>"; };
-		84E942DB1885C18500BFACED /* UIView+SectionStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SectionStyle.m"; sourceTree = "<group>"; };
 		84E942DD1885D3BA00BFACED /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		84E942E218867CF100BFACED /* NSArray+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Extensions.h"; sourceTree = "<group>"; };
 		84E942E318867CF100BFACED /* NSArray+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Extensions.m"; sourceTree = "<group>"; };
 		84E942E51886BC6B00BFACED /* description.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = description.pdf; sourceTree = "<group>"; };
+		84E942E7188E858D00BFACED /* UIView+IBAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+IBAppearance.h"; sourceTree = "<group>"; };
+		84E942E8188E858D00BFACED /* UIView+IBAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+IBAppearance.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,8 +188,6 @@
 				84E942A318854B4300BFACED /* Note.m */,
 				84E942B918854D2B00BFACED /* NoteCell.h */,
 				84E942BA18854D2B00BFACED /* NoteCell.m */,
-				84E942DA1885C18500BFACED /* UIView+SectionStyle.h */,
-				84E942DB1885C18500BFACED /* UIView+SectionStyle.m */,
 				84E942BC18854EAD00BFACED /* extension */,
 				84E9427C188536D500BFACED /* Images.xcassets */,
 				84E942A818854C3700BFACED /* en.lproj */,
@@ -269,6 +267,8 @@
 				84E942CE18854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.m */,
 				84E942E218867CF100BFACED /* NSArray+Extensions.h */,
 				84E942E318867CF100BFACED /* NSArray+Extensions.m */,
+				84E942E7188E858D00BFACED /* UIView+IBAppearance.h */,
+				84E942E8188E858D00BFACED /* UIView+IBAppearance.m */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -404,9 +404,9 @@
 				84E9426E188536D500BFACED /* main.m in Sources */,
 				84E942D718854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.m in Sources */,
 				84E942D218854EAD00BFACED /* NSString+Tools.m in Sources */,
-				84E942DC1885C18500BFACED /* UIView+SectionStyle.m in Sources */,
 				84E942D018854EAD00BFACED /* NSDictionary+HttpTools.m in Sources */,
 				84E942D418854EAD00BFACED /* UIButton+Animator.m in Sources */,
+				84E942E9188E858D00BFACED /* UIView+IBAppearance.m in Sources */,
 				84E942D618854EAD00BFACED /* UIView+Animator.m in Sources */,
 				84E9427B188536D500BFACED /* DetailViewController.m in Sources */,
 				84E942A418854B4300BFACED /* Note.m in Sources */,

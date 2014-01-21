@@ -8,7 +8,6 @@
 
 #import "DetailViewController.h"
 #import "UIViewController+TopBarAndBottomBarSpacing.h"
-#import "UIView+SectionStyle.h"
 
 @interface DetailViewController ()
 @end
@@ -42,9 +41,6 @@
     self.title = self.note.title;
 
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    [titleView stylize];
-    [textView stylize];
     
     scrollView.contentInset = UIEdgeInsetsZero;
     

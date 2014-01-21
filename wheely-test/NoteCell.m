@@ -7,7 +7,6 @@
 //
 
 #import "NoteCell.h"
-#import "UIView+SectionStyle.h"
 
 static CGFloat sideMargin = 10;
 
@@ -21,7 +20,6 @@ static CGFloat sideMargin = 10;
 {
     if (self = [super initWithCoder:aDecoder])
     {
-        [self stylize];
     }
     return self;
 }
