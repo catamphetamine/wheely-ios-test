@@ -24,6 +24,10 @@
     
     __weak IBOutlet UILabel *noteTitle;
     __weak IBOutlet UILabel *text;
+    
+    __weak IBOutlet NSLayoutConstraint *dummyWidthConstraint;
+    __weak IBOutlet NSLayoutConstraint *dummyHeightConstraint;
+    __weak IBOutlet NSLayoutConstraint *dummyXPositionConstraint;
 }
 
 #pragma mark - Managing the detail item
@@ -45,6 +49,11 @@
     scrollView.contentInset = UIEdgeInsetsZero;
     
     NSDictionary* views = NSDictionaryOfVariableBindings(containingView, scrollView);
+    
+    // remove dummy constraints: width, height, x position
+    [containingView removeConstraint:dummyWidthConstraint];
+    [containingView removeConstraint:dummyHeightConstraint];
+    [containingView removeConstraint:dummyXPositionConstraint];
     
     [scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[containingView(==scrollView)]" options:0 metrics:0 views:views]];
 }

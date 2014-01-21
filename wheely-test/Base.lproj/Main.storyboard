@@ -117,7 +117,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qf1-Uh-0bc" userLabel="Containing View">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qf1-Uh-0bc" userLabel="Containing View">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -171,16 +171,19 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="b0n-xl-CTk" firstAttribute="top" secondItem="kFZ-Jr-5Iq" secondAttribute="bottom" constant="10" id="0zf-Lk-ag1"/>
+                                    <constraint firstAttribute="width" constant="320" id="1Lz-MU-Nla"/>
                                     <constraint firstItem="kFZ-Jr-5Iq" firstAttribute="top" secondItem="qf1-Uh-0bc" secondAttribute="top" constant="10" id="I68-wu-XQ5"/>
                                     <constraint firstAttribute="trailing" secondItem="kFZ-Jr-5Iq" secondAttribute="trailing" constant="10" id="JZW-hc-ZVz"/>
                                     <constraint firstAttribute="trailing" secondItem="b0n-xl-CTk" secondAttribute="trailing" constant="10" id="R1L-WN-rRS"/>
                                     <constraint firstItem="b0n-xl-CTk" firstAttribute="leading" secondItem="qf1-Uh-0bc" secondAttribute="leading" constant="10" id="YBu-K0-0DT"/>
+                                    <constraint firstAttribute="height" constant="568" id="ZUX-uY-Y3s"/>
                                     <constraint firstItem="kFZ-Jr-5Iq" firstAttribute="leading" secondItem="qf1-Uh-0bc" secondAttribute="leading" constant="10" id="a73-fN-CjQ"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="qf1-Uh-0bc" firstAttribute="leading" secondItem="ssx-VX-ZYd" secondAttribute="leading" id="1YC-pQ-nW8"/>
                             <constraint firstItem="gk1-lt-nhV" firstAttribute="top" secondItem="qf1-Uh-0bc" secondAttribute="bottom" id="HPb-cX-ihw"/>
                             <constraint firstItem="qf1-Uh-0bc" firstAttribute="top" secondItem="Wkd-BF-42p" secondAttribute="bottom" id="m7t-gy-KAr"/>
                         </constraints>
@@ -188,6 +191,9 @@
                     <navigationItem key="navigationItem" title="Detail" id="cra-N8-TIN"/>
                     <connections>
                         <outlet property="containingView" destination="qf1-Uh-0bc" id="XjT-Nb-JTf"/>
+                        <outlet property="dummyHeightConstraint" destination="ZUX-uY-Y3s" id="7sg-0Q-eFE"/>
+                        <outlet property="dummyWidthConstraint" destination="1Lz-MU-Nla" id="sNo-u9-giP"/>
+                        <outlet property="dummyXPositionConstraint" destination="1YC-pQ-nW8" id="3Ho-yB-6hg"/>
                         <outlet property="noteTitle" destination="GFM-OY-Buu" id="fZn-ed-ky7"/>
                         <outlet property="scrollView" destination="ssx-VX-ZYd" id="pHl-5t-dg7"/>
                         <outlet property="text" destination="NHF-DI-ttH" id="g5b-3D-Sd3"/>
