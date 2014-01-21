@@ -183,9 +183,10 @@ static const int refreshInterval = 3; // in seconds
     [retainedNotesSet intersectSet:newNotesSet];
     NSArray* retainedNotes = [retainedNotesSet allObjects];
     
+    // sorting added notes is needed to prevent 'index beyond bounds' exception
     addedNotes = [self sortNotes:addedNotes];
-    removedNotes = [self sortNotes:removedNotes];
-    retainedNotes = [self sortNotes:retainedNotes];
+    //removedNotes = [self sortNotes:removedNotes];
+    //retainedNotes = [self sortNotes:retainedNotes];
     
     /*
     NSMutableArray* removedNotes = [previousNotes mutableCopy];
@@ -207,12 +208,6 @@ static const int refreshInterval = 3; // in seconds
     
     NSLog(@"previous notes %@", previousNotes);
     NSLog(@"new notes %@", newNotes);
-    
-    /*
-    NSLog(@"removed notes %@", removedNotes);
-    NSLog(@"added notes %@", addedNotes);
-    NSLog(@"retained notes %@", retainedNotes);
-    */
     
     // remove absent notes
     for (Note* note in removedNotes)
