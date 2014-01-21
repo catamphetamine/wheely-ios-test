@@ -31,6 +31,11 @@
     return [self.id isEqualToNumber:note.id];
 }
 
+- (NSUInteger) hash
+{
+    return [self.id intValue];
+}
+
 - (NSString*) description
 {
     return [[[self.id stringValue] stringByAppendingString:@". "] stringByAppendingString:self.title];

@@ -140,10 +140,7 @@ static const int refreshInterval = 3; // in seconds
         [newNotes addObject:note];
     }
     
-    [newNotes sortUsingComparator:^NSComparisonResult(Note* first, Note* second)
-    {
-        return [first.id compare:second.id];
-    }];
+    [self sortNotes:newNotes];
     
     // if first time
     if (notes.count == 0)
@@ -171,6 +168,26 @@ static const int refreshInterval = 3; // in seconds
 {
     NSMutableArray* previousNotes = notes;
     
+    NSSet* previousNotesSet = [NSSet setWithArray:previousNotes];
+    NSSet* newNotesSet = [NSSet setWithArray:newNotes];
+    
+    NSMutableSet* addedNotesSet = [NSMutableSet setWithArray:newNotes];
+    [addedNotesSet minusSet:previousNotesSet];
+    NSArray* addedNotes = [addedNotesSet allObjects];
+    
+    NSMutableSet* removedNotesSet = [NSMutableSet setWithArray:previousNotes];
+    [removedNotesSet minusSet:newNotesSet];
+    NSArray* removedNotes = [removedNotesSet allObjects];
+    
+    NSMutableSet* retainedNotesSet = [NSMutableSet setWithArray:previousNotes];
+    [retainedNotesSet intersectSet:newNotesSet];
+    NSArray* retainedNotes = [retainedNotesSet allObjects];
+    
+    addedNotes = [self sortNotes:addedNotes];
+    removedNotes = [self sortNotes:removedNotes];
+    retainedNotes = [self sortNotes:retainedNotes];
+    
+    /*
     NSMutableArray* removedNotes = [previousNotes mutableCopy];
     NSMutableArray* addedNotes = [newNotes mutableCopy];
     
@@ -186,9 +203,16 @@ static const int refreshInterval = 3; // in seconds
             [retainedNotes addObject:note];
         }
     }
+    */
     
     NSLog(@"previous notes %@", previousNotes);
     NSLog(@"new notes %@", newNotes);
+    
+    /*
+    NSLog(@"removed notes %@", removedNotes);
+    NSLog(@"added notes %@", addedNotes);
+    NSLog(@"retained notes %@", retainedNotes);
+    */
     
     // remove absent notes
     for (Note* note in removedNotes)
@@ -249,6 +273,23 @@ static const int refreshInterval = 3; // in seconds
     NSLog(@"finished updates with %@", notes);
     
     [tableView endUpdates];
+}
+
+- (NSMutableArray*) sortNotes: (NSArray*) notes
+{
+    NSMutableArray* mutableNotes;
+    
+    if ([notes isKindOfClass:NSMutableArray.class])
+        mutableNotes = (NSMutableArray*) notes;
+    else
+        mutableNotes = [notes mutableCopy];
+    
+    [mutableNotes sortUsingComparator:^NSComparisonResult(Note* first, Note* second)
+    {
+        return [first.id compare:second.id];
+    }];
+    
+    return mutableNotes;
 }
 
 - (void) updateDetail
