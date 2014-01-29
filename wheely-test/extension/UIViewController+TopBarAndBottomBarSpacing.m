@@ -16,7 +16,7 @@
     return UIEdgeInsetsMake(to.top + extraInset.top, to.left + extraInset.left, to.bottom + extraInset.bottom, to.right + extraInset.right);
 }
 
-- (void) insetOnTopAndBottom: (UIView*) subview
+- (void) fixInsetsOnTopAndBottom: (UIView*) subview
 {
     UIEdgeInsets extraInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.bottomLayoutGuide.length, 0);
     
@@ -25,12 +25,12 @@
     if ([subview isKindOfClass:[UIScrollView class]])
     {
         UIScrollView* scrollView = (UIScrollView*) subview;
-        scrollView.contentInset = [self addExtraInset:extraInset to:scrollView.contentInset];
+        scrollView.contentInset = extraInset; //[self addExtraInset:extraInset to:scrollView.contentInset];
     }
     else if ([subview isKindOfClass:[UIWebView class]])
     {
         UIWebView* webView = (UIWebView*) subview;
-        webView.scrollView.contentInset = [self addExtraInset:extraInset to:webView.scrollView.contentInset];
+        webView.scrollView.contentInset = extraInset; //[self addExtraInset:extraInset to:webView.scrollView.contentInset];
     }
 }
 

@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface UIViewController (TopBarAndBottomBarSpacing)
-- (void) insetOnTopAndBottom: (UIView*) subview;
+- (void) fixInsetsOnTopAndBottom: (UIView*) subview;
 @end

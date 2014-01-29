@@ -33,6 +33,9 @@ static const int refreshInterval = 3; // in seconds
     NSMutableArray* notes;
     
     __weak DetailViewController* detailViewController;
+    
+    CGFloat previousTopLayoutGuideHeight;
+    CGFloat previousScrollOffsetY;
 }
 
 + (void) initialize
@@ -80,15 +83,31 @@ static const int refreshInterval = 3; // in seconds
     dispatch_once(&onceToken, ^
     {
         // fix table view insets for iOS 7
-        [self insetOnTopAndBottom:tableView];
+        [self fixInsetsOnTopAndBottom:tableView];
         
         [self centerLoadingIndicatorVertically];
     });
 }
 
+- (void) willRotateToInterfaceOrientation: (UIInterfaceOrientation) toInterfaceOrientation duration:(NSTimeInterval) duration
+{
+    previousTopLayoutGuideHeight = self.topLayoutGuide.length;
+    previousScrollOffsetY = tableView.contentOffset.y;
+}
+
 - (void) willAnimateRotationToInterfaceOrientation: (UIInterfaceOrientation) toInterfaceOrientation duration:(NSTimeInterval) duration
 {
+    // fix table view insets for iOS 7
+    [self fixInsetsOnTopAndBottom:tableView];
+    
     [self centerLoadingIndicatorVertically];
+    
+    // fix scroll position
+    
+    CGFloat delta = self.topLayoutGuide.length - previousTopLayoutGuideHeight;
+    delta += tableView.contentOffset.y - previousScrollOffsetY;
+    
+    tableView.contentOffset = CGPointMake(tableView.contentOffset.x, tableView.contentOffset.y - delta);
 }
 
 // take the insets into account when centering vertically on iOS 7
