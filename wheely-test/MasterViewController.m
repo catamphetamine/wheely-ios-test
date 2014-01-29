@@ -86,11 +86,8 @@ static const int refreshInterval = 3; // in seconds
     });
 }
 
-// не вынесено в willRotateToInterfaceOrientation, потому что self.topLayoutGuide.length там еще старое
-- (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
+- (void) willAnimateRotationToInterfaceOrientation: (UIInterfaceOrientation) toInterfaceOrientation duration:(NSTimeInterval) duration
 {
-    //NSLog(@"%f", self.topLayoutGuide.length);
-    
     [self centerLoadingIndicatorVertically];
 }
 
