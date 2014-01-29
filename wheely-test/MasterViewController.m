@@ -79,8 +79,40 @@ static const int refreshInterval = 3; // in seconds
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^
     {
+        // fix table view insets for iOS 7
         [self insetOnTopAndBottom:tableView];
+        
+        [self centerLoadingIndicatorVertically];
     });
+}
+
+// не вынесено в willRotateToInterfaceOrientation, потому что self.topLayoutGuide.length там еще старое
+- (void) didRotateFromInterfaceOrientation: (UIInterfaceOrientation) fromInterfaceOrientation
+{
+    //NSLog(@"%f", self.topLayoutGuide.length);
+    
+    [self centerLoadingIndicatorVertically];
+}
+
+// take the insets into account when centering vertically on iOS 7
+- (void) centerLoadingIndicatorVertically
+{
+    for (NSLayoutConstraint* constraint in self.view.constraints)
+    {
+        if (constraint.secondItem == loadingIndicator)
+        {
+            if (constraint.secondAttribute == NSLayoutAttributeCenterY)
+            {
+                CGFloat insets = self.topLayoutGuide.length + self.bottomLayoutGuide.length;
+                constraint.constant = -(int) (insets / 2);
+                
+                [self.view setNeedsUpdateConstraints];
+                [self.view layoutSubviews];
+                
+                break;
+            }
+        }
+    }
 }
 
 - (void) startRefreshTimer
@@ -155,9 +187,6 @@ static const int refreshInterval = 3; // in seconds
     {
         [self applyChanges:newNotes];
     }
-    
-    //NSLog(@"\n\n\n\n\n\n");
-    //NSLog(@"%@", notes);
     
     [self updateDetail];
     
