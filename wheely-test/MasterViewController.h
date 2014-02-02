@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 
 #import "ServerCommunication.h"
+#import "DynamicRowHeightTableViewController.h"
 
-@interface MasterViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, ServerCommunicationDelegate>
+@interface MasterViewController : DynamicRowHeightTableViewController <UITableViewDelegate, UITableViewDataSource, ServerCommunicationDelegate>
 
 - (void) fetchNotes;
 - (void) startRefreshTimer;

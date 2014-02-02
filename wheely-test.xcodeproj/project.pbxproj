@@ -42,6 +42,7 @@
 		84E942E418867CF100BFACED /* NSArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942E318867CF100BFACED /* NSArray+Extensions.m */; };
 		84E942E61886BC6B00BFACED /* description.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 84E942E51886BC6B00BFACED /* description.pdf */; };
 		84E942E9188E858D00BFACED /* UIView+IBAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942E8188E858D00BFACED /* UIView+IBAppearance.m */; };
+		84E942EF189D647C00BFACED /* DynamicRowHeightTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E942EE189D647C00BFACED /* DynamicRowHeightTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,9 @@
 		84E942E51886BC6B00BFACED /* description.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = description.pdf; sourceTree = "<group>"; };
 		84E942E7188E858D00BFACED /* UIView+IBAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+IBAppearance.h"; sourceTree = "<group>"; };
 		84E942E8188E858D00BFACED /* UIView+IBAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+IBAppearance.m"; sourceTree = "<group>"; };
+		84E942ED189D647C00BFACED /* DynamicRowHeightTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicRowHeightTableViewController.h; sourceTree = "<group>"; };
+		84E942EE189D647C00BFACED /* DynamicRowHeightTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicRowHeightTableViewController.m; sourceTree = "<group>"; };
+		84E942F4189D673F00BFACED /* DynamicRowHeightTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicRowHeightTableViewCell.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +192,9 @@
 				84E942A318854B4300BFACED /* Note.m */,
 				84E942B918854D2B00BFACED /* NoteCell.h */,
 				84E942BA18854D2B00BFACED /* NoteCell.m */,
+				84E942ED189D647C00BFACED /* DynamicRowHeightTableViewController.h */,
+				84E942EE189D647C00BFACED /* DynamicRowHeightTableViewController.m */,
+				84E942F4189D673F00BFACED /* DynamicRowHeightTableViewCell.h */,
 				84E942BC18854EAD00BFACED /* extension */,
 				84E9427C188536D500BFACED /* Images.xcassets */,
 				84E942A818854C3700BFACED /* en.lproj */,
@@ -403,6 +410,7 @@
 				84E942D118854EAD00BFACED /* NSError+Tools.m in Sources */,
 				84E9426E188536D500BFACED /* main.m in Sources */,
 				84E942D718854EAD00BFACED /* UIViewController+TopBarAndBottomBarSpacing.m in Sources */,
+				84E942EF189D647C00BFACED /* DynamicRowHeightTableViewController.m in Sources */,
 				84E942D218854EAD00BFACED /* NSString+Tools.m in Sources */,
 				84E942D018854EAD00BFACED /* NSDictionary+HttpTools.m in Sources */,
 				84E942D418854EAD00BFACED /* UIButton+Animator.m in Sources */,

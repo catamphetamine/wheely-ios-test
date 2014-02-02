@@ -31,6 +31,11 @@ static CGFloat sideMargin = 10;
     [super setFrame:frame];
 }
 
+- (void) data: (id) data
+{
+    return [self note: (Note*) data];
+}
+
 - (void) note: (Note*) note
 {
     title.text = note.title;

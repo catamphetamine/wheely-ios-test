@@ -21,7 +21,9 @@ static const int refreshInterval = 3; // in seconds
 
 @implementation MasterViewController
 {
+    __weak IBOutlet UIView* loadingIndicatorContainer;
     __weak IBOutlet UIActivityIndicatorView* loadingIndicator;
+    
     __weak IBOutlet UITableView* tableView;
     
     __weak AppDelegate* appDelegate;
@@ -79,56 +81,40 @@ static const int refreshInterval = 3; // in seconds
 {
     [super viewDidLayoutSubviews];
     
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^
-    {
-        // fix table view insets for iOS 7
-        [self fixInsetsOnTopAndBottom:tableView];
-        
-        [self centerLoadingIndicatorVertically];
-    });
+    [self fixOverlayInsets];
+
+//    dispatch_once(&onceToken, ^
+//    {
+//        [self fixOverlayInsets];
+//    });
 }
 
 - (void) willRotateToInterfaceOrientation: (UIInterfaceOrientation) toInterfaceOrientation duration:(NSTimeInterval) duration
 {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    
     previousTopLayoutGuideHeight = self.topLayoutGuide.length;
     previousScrollOffsetY = tableView.contentOffset.y;
 }
 
 - (void) willAnimateRotationToInterfaceOrientation: (UIInterfaceOrientation) toInterfaceOrientation duration:(NSTimeInterval) duration
 {
-    // fix table view insets for iOS 7
-    [self fixInsetsOnTopAndBottom:tableView];
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
     
-    [self centerLoadingIndicatorVertically];
+    [self fixOverlayInsets];
     
     // fix scroll position
-    
-    CGFloat delta = self.topLayoutGuide.length - previousTopLayoutGuideHeight;
-    delta += tableView.contentOffset.y - previousScrollOffsetY;
-    
-    tableView.contentOffset = CGPointMake(tableView.contentOffset.x, tableView.contentOffset.y - delta);
+//
+//    CGFloat delta = self.topLayoutGuide.length - previousTopLayoutGuideHeight;
+//    delta += tableView.contentOffset.y - previousScrollOffsetY;
+//    
+//    tableView.contentOffset = CGPointMake(tableView.contentOffset.x, tableView.contentOffset.y - delta);
 }
 
-// take the insets into account when centering vertically on iOS 7
-- (void) centerLoadingIndicatorVertically
+- (void) fixOverlayInsets
 {
-    for (NSLayoutConstraint* constraint in self.view.constraints)
-    {
-        if (constraint.secondItem == loadingIndicator)
-        {
-            if (constraint.secondAttribute == NSLayoutAttributeCenterY)
-            {
-                CGFloat insets = self.topLayoutGuide.length + self.bottomLayoutGuide.length;
-                constraint.constant = -(int) (insets / 2);
-                
-                [self.view setNeedsUpdateConstraints];
-                [self.view layoutSubviews];
-                
-                break;
-            }
-        }
-    }
+    // fix table view insets for iOS 7
+    [self fixInsetsOnTopAndBottom:tableView];
 }
 
 - (void) startRefreshTimer
@@ -168,6 +154,7 @@ static const int refreshInterval = 3; // in seconds
                      message: (NSString*) errorMessage
 {
     [loadingIndicator stopAnimating];
+    loadingIndicatorContainer.hidden = YES;
     
     [self showError:errorMessage];
     
@@ -197,13 +184,15 @@ static const int refreshInterval = 3; // in seconds
         [self refreshTable];
         
         tableView.hidden = NO;
+        
         [loadingIndicator stopAnimating];
+        loadingIndicatorContainer.hidden = YES;
     }
     else
     {
         [self applyChanges:newNotes];
     }
-    
+
     [self updateDetail];
     
     [self startRefreshTimer];
@@ -234,6 +223,8 @@ static const int refreshInterval = 3; // in seconds
     //retainedNotes = [self sortNotes:retainedNotes];
     
     /*
+    // alternative to using sets
+     
     NSMutableArray* removedNotes = [previousNotes mutableCopy];
     NSMutableArray* addedNotes = [newNotes mutableCopy];
     
@@ -257,6 +248,8 @@ static const int refreshInterval = 3; // in seconds
     // remove absent notes
     for (Note* note in removedNotes)
     {
+        [self purgeCachedRowHeightFor:note];
+        
         int index = [previousNotes indexOfObject:note];
         
         // fix the 'request for rect of header in invalid section (-1)' bug
@@ -279,6 +272,8 @@ static const int refreshInterval = 3; // in seconds
     // insert new notes
     for (Note* note in addedNotes)
     {
+        [self purgeCachedRowHeightFor:note];
+        
         int index = [newNotes indexOfObject:note];
         
         NSLog(@"insert note at %d", index);
@@ -304,6 +299,8 @@ static const int refreshInterval = 3; // in seconds
             continue;
         
         NSLog(@"reload note at %d", index);
+        
+        [self purgeCachedRowHeightFor:newNote];
         
         previousNotes[index] = newNote;
         
@@ -398,32 +395,29 @@ static const int refreshInterval = 3; // in seconds
     return 1;
 }
 
-- (CGFloat) tableView: (UITableView*) tableView heightForRowAtIndexPath: (NSIndexPath*) indexPath
+- (UITableView*) tableView
 {
-    static NoteCell* sizingCell;
-    static dispatch_once_t onceToken;
-    
-    dispatch_once(&onceToken, ^
-    {
-        sizingCell = (NoteCell*)[tableView dequeueReusableCellWithIdentifier:@"NoteCell"];
-    });
-    
-    [sizingCell note:notes[indexPath.section]];
-    
-    // force layout
-    [sizingCell setNeedsLayout];
-    [sizingCell layoutIfNeeded];
-    
-    // get the fitting size
-    CGSize fittingSize = [sizingCell.contentView systemLayoutSizeFittingSize: UILayoutFittingCompressedSize];
-    //NSLog( @"fittingSize: %@", NSStringFromCGSize(fittingSize));
-    
-    return fittingSize.height;
+    return tableView;
 }
 
+- (NSString*) cellId
+{
+    return @"NoteCell";
+}
+
+- (NSArray*) data
+{
+    return notes;
+}
+
+- (id) idForDataSetItem: (id) dataSetItem
+{
+    return ((Note*) dataSetItem).id;
+}
+    
 - (UITableViewCell*) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NoteCell* cell = [tableView dequeueReusableCellWithIdentifier:@"NoteCell" forIndexPath:indexPath];
+    NoteCell* cell = [tableView dequeueReusableCellWithIdentifier:[self cellId] forIndexPath:indexPath];
 
     Note* note = notes[indexPath.section];
     

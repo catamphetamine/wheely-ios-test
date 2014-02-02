@@ -10,7 +10,9 @@
 
 #import "Note.h"
 
-@interface NoteCell : UITableViewCell
+#import "DynamicRowHeightTableViewCell.h"
+
+@interface NoteCell : UITableViewCell <DynamicRowHeightTableViewCell>
 
 - (void) note: (Note*) note;
 

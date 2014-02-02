@@ -10,4 +10,5 @@
 
 @interface UIViewController (TopBarAndBottomBarSpacing)
 - (void) fixInsetsOnTopAndBottom: (UIView*) subview;
+- (UIEdgeInsets) guidedInsets;
 @end

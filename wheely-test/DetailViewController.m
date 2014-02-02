@@ -26,7 +26,6 @@
     
     __weak IBOutlet NSLayoutConstraint *dummyWidthConstraint;
     __weak IBOutlet NSLayoutConstraint *dummyHeightConstraint;
-    __weak IBOutlet NSLayoutConstraint *dummyXPositionConstraint;
 }
 
 #pragma mark - Managing the detail item
@@ -40,18 +39,24 @@
     
     self.title = self.note.title;
 
+    // хз, как он догадался в interface builder-е, что нужно для containingView нужно сверху отступить, чтобы вылезти из-под navigation bar-а
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    scrollView.contentInset = UIEdgeInsetsZero;
     
     NSDictionary* views = NSDictionaryOfVariableBindings(containingView, scrollView);
     
-    // remove dummy constraints: width, height, x position
+    // remove dummy constraints for width and height
     [containingView removeConstraint:dummyWidthConstraint];
     [containingView removeConstraint:dummyHeightConstraint];
-    [containingView removeConstraint:dummyXPositionConstraint];
     
+    // add real constrants
     [scrollView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[containingView(==scrollView)]" options:0 metrics:0 views:views]];
+}
+
+- (void) viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    scrollView.scrollIndicatorInsets = [self guidedInsets];
 }
 
 - (void) updateNote: (Note*) note
